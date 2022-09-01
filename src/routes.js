@@ -1,5 +1,5 @@
 const express = require('express');
-const UsuarioController = require('./controllers/UsuarioController');
+const ObjetivoController = require('./controllers/ObjetivoController');
 
 const routes = express.Router();
 
@@ -9,6 +9,6 @@ routes.get('/', (req, res) => {
     });
 })
 
-routes.post('/usuarios', UsuarioController.store);
+routes.post('/objetivos', ObjetivoController.store);
 
 module.exports = routes;
