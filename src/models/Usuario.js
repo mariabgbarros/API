@@ -6,18 +6,17 @@ class Usuario extends Model {
             nome: DataTypes.STRING,
             email: DataTypes.STRING,
             senha: DataTypes.STRING,
-            anoNasc: DataTypes.INTEGER,
+            data_nasc: DataTypes.STRING,
             peso: DataTypes.INTEGER,
             altura: DataTypes.INTEGER,
-        },
-        {
+        }, {
             sequelize,
-            tableName: 'usuarios'
+            tableName: 'usuarios',
         })
     }
 
     static associate(models) {
-        this.belongsTo(models.Objetivo, { foreignKey: 'idObjetivo', as: 'objetivos' });
+        this.belongsTo(models.Objetivo, {foreignKey: 'objetivo_id', as: 'objetivo'});
     }
 }
 

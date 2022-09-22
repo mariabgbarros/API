@@ -1,8 +1,8 @@
 {
-  "name": "foodcare_API",
+  "name": "api_modelo",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "ISC",
+  "main": "src/server.js",
+  "license": "MIT",
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js"
@@ -10,12 +10,10 @@
   "dependencies": {
     "express": "^4.18.1",
     "mssql": "^9.0.1",
-    "pg": "^8.7.3",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^6.21.3"
+    "nodemon": "^2.0.19",
+    "sequelize": "^6.21.6"
   },
   "devDependencies": {
-    "nodemon": "^2.0.19",
     "sequelize-cli": "^6.4.1"
   },
   "repository": {

@@ -4,12 +4,14 @@ class Objetivo extends Model {
     static init(sequelize) {
         super.init({
             descricao: DataTypes.STRING,
-        },
-        { sequelize })
+        }, {
+            sequelize,
+            tableName: 'objetivos',
+        })
     }
 
     static associate(models) {
-        this.hasMany(models.Usuario, { foreignKey: 'idObjetivo', as: 'usuarios'});
+        this.hasMany(models.Usuario, {foreignKey: 'objetivo_id', as: 'usuarios'});
     }
 }
 
