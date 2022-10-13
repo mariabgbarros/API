@@ -4,6 +4,8 @@ const UsuarioController = require('./controllers/UsuarioController');
 
 const routes = express.Router();
 
+routes.get('/', (req,res) => {return res.json({teste: "Testando"})});
+
 routes.post('/objetivos', ObjetivoController.store);
 routes.get('/objetivos', ObjetivoController.list);
 
