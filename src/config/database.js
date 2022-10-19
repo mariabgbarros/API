@@ -1,18 +1,16 @@
-const tedious = require('tedious');
-
 module.exports = {
-    dialect: 'mssql',
     dialectOptions: {
-        options: {
-            encrypt: false,
-            validateBulkLoadParameters: true
-        },
+        ssl: {
+            require: true,
+            rejectUnauthorized: false,
+        }
     },
-    dialectModule: tedious,
-    host: 'regulus.cotuca.unicamp.br',
-    username: 'BD20154',
-    password: 'BD20154',
-    database: 'BD20154',
+    dialect: 'postgres',
+    host: 'ec2-54-159-175-38.compute-1.amazonaws.com',
+    database: 'd5ls3unrcr3ka6',
+    port: '5432',
+    username: 'hjiaaxwneihezr',
+    password: '8cc31e459e7e110be33b1e0d452c1033749174f42607f9ef891061c7e3445392',
     define: {
         timestamps: true,
         freezeTableName: false,
