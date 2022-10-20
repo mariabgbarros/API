@@ -8,6 +8,15 @@ module.exports = {
         return res.json(usuarios);
     },
 
+    async index(req, res) {
+        const { email } = req.body;
+        const usuario = await Usuario.findOne({
+            where: { email }
+        });
+
+        return res.json(usuario);
+    },
+
     async store(req, res) {
         const {
             nome,
