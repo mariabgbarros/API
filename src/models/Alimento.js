@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 
-class RefeicaoAlimento extends Model {
+class Alimento extends Model {
     static init(sequelize) {
         super.init({
             alimento: DataTypes.STRING,
@@ -16,4 +16,4 @@ class RefeicaoAlimento extends Model {
     }
 }
 
-module.exports = RefeicaoAlimento
+module.exports = Alimento

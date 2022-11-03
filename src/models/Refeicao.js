@@ -11,7 +11,7 @@ class Refeicao extends Model {
     }
 
     static associate(models) {
-        this.hasMany(models.RefeicaoAlimento, {foreignKey: 'refeicao_id', as: 'alimento'});
+        this.hasMany(models.Alimento, {foreignKey: 'refeicao_id', as: 'alimentos'});
         this.belongsTo(models.Usuario, {foreignKey: 'usuario_id', as: 'usuario'});
     }
 }

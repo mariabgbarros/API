@@ -1,9 +1,13 @@
 const Refeicao = require('../models/Refeicao');
-const RefeicaoAlimento = require('../models/RefeicaoAlimento');
+const Alimento = require('../models/Alimento');
 
 module.exports = {
     async index(req, res) {
+        const { id } = req.params;
 
+        const alimento = await Alimento.findByPk(id);
+
+        return res.json(alimento);
     },
 
     async store(req, res) {
@@ -17,7 +21,7 @@ module.exports = {
                 encontrada com o id ${refeicao_id}` });
         }
 
-        const refeicao_alimento = await RefeicaoAlimento.create({
+        const refeicao_alimento = await Alimento.create({
             refeicao_id,
             alimento,
             qtd_g,
@@ -25,4 +29,18 @@ module.exports = {
 
         return res.json(refeicao_alimento);
     },
+
+    async delete (req, res) {
+        const { id } = req.params;
+
+        const alimento = await Alimento.findByPk(id);
+
+        if (!alimento) {
+            return res.status(400).json({erro:"Alimento nao encontrado"})
+        }
+
+        await alimento.destroy();
+
+        return res.json();
+    }
 }

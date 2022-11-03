@@ -1,6 +1,5 @@
 const Usuario = require('../models/Usuario');
 const Refeicao = require('../models/Refeicao');
-// const RefeicaoAlimento = require('../models/RefeicaoAlimento');
 
 module.exports = {
     async index(req, res) {
@@ -9,6 +8,23 @@ module.exports = {
         const refeicao = await Refeicao.findByPk(id);
 
         return res.json(refeicao);
+    },
+
+    async listByUser(req, res) {
+        const { usuario_id } = req.params;
+
+        const usuario = await Usuario.findByPk(usuario_id, {
+            include: {
+                association: 'refeicoes',
+                attributes: [ 'id', 'data' ],
+                include: {
+                    association: 'alimentos',
+                    attributes: [ 'alimento', 'qtd_g' ]
+                }
+            }
+        });
+
+        return res.json(usuario.refeicoes);
     },
 
     async store(req, res) {
@@ -33,7 +49,7 @@ module.exports = {
         const refeicao = await Refeicao.findByPk(id);
 
         if (!refeicao) {
-            res.status(400).json({erro:"Refeicao nao encontrado"})
+            return res.status(400).json({erro:"Refeicao nao encontrado"})
         }
 
         await refeicao.destroy();
