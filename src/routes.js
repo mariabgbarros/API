@@ -6,7 +6,7 @@ const UsuarioController = require('./controllers/UsuarioController');
 
 const routes = express.Router();
 
-routes.get('/', (req,res) => {return res.json({teste: "Testando"})});
+routes.get('/', (req,res) => {return res.json({teste: "deploy automatico"})});
 
 // Objetivos
 routes.post('/objetivos', ObjetivoController.store);
