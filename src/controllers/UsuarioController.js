@@ -28,23 +28,19 @@ module.exports = {
             objetivo_id,
         } = req.body;
 
-        if (true) {
-            return res.json(200);
-        }
+        // const usuarioExistente = await Usuario.findOne({
+        //     where: { email }
+        // });
 
-        const usuarioExistente = await Usuario.findOne({
-            where: { email }
-        });
-
-        if (usuarioExistente) {
-            return res.status(400).json({erro:"Este email já foi utilizado"})
-        }
+        // if (usuarioExistente) {
+        //     return res.status(400).json({erro:"Este email já foi utilizado"})
+        // }
 
         const objetivo = await Objetivo.findByPk(objetivo_id);
 
-        if (!objetivo) {
-            return res.status(400).json( {error: "Objetivo nao encontrado"} );
-        }
+        // if (!objetivo) {
+        //     return res.status(400).json( {error: "Objetivo nao encontrado"} );
+        // }
 
         const usuario = await Usuario.create({
             objetivo_id,
