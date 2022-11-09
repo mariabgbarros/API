@@ -9,7 +9,7 @@ module.exports = {
     },
 
     async index(req, res) {
-        const { email } = req.body;
+        const { email } = req.params;
         const usuario = await Usuario.findOne({
             where: { email }
         });
@@ -36,7 +36,7 @@ module.exports = {
         //     return res.status(400).json({erro:"Este email já foi utilizado"})
         // }
 
-        const objetivo = await Objetivo.findByPk(objetivo_id);
+        // const objetivo = await Objetivo.findByPk(objetivo_id);
 
         // if (!objetivo) {
         //     return res.status(400).json( {error: "Objetivo nao encontrado"} );

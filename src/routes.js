@@ -15,7 +15,7 @@ routes.get('/objetivos', ObjetivoController.list);
 // Usuarios
 routes.post('/usuarios', UsuarioController.store);
 routes.get('/usuarios', UsuarioController.list);
-routes.get('/usuarios/index', UsuarioController.index);
+routes.get('/usuarios/:email', UsuarioController.index);
 routes.delete('/usuarios', UsuarioController.delete);
 routes.put('/usuarios', UsuarioController.update);
 
