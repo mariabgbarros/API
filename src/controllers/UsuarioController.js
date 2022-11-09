@@ -28,6 +28,10 @@ module.exports = {
             objetivo_id,
         } = req.body;
 
+        if (true) {
+            return res.json(200);
+        }
+
         const usuarioExistente = await Usuario.findOne({
             where: { email }
         });
