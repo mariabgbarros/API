@@ -3,6 +3,7 @@ const ObjetivoController = require('./controllers/ObjetivoController');
 const RefeicaoController = require('./controllers/RefeicaoController');
 const AlimentoController = require('./controllers/AlimentoController');
 const UsuarioController = require('./controllers/UsuarioController');
+const NecessidadesController = require('./controllers/NecessidadesController');
 
 const routes = express.Router();
 
@@ -29,5 +30,8 @@ routes.delete('/refeicoes/:id', RefeicaoController.delete);
 routes.post('/refeicoes/:refeicao_id/alimentos', AlimentoController.store);
 routes.get('/alimentos/:id', AlimentoController.index);
 routes.delete('/alimentos/:id', AlimentoController.delete);
+
+// Necessidades
+routes.get('/usuarios/:usuario_id/necessidades', NecessidadesController.index);
 
 module.exports = routes;
