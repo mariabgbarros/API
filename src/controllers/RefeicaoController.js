@@ -65,6 +65,7 @@ module.exports = {
         return res.json();
     },
 
+    /*
     async getConsumo(req, res) {
         const { id } = req.params;
 
@@ -112,4 +113,5 @@ module.exports = {
 
         return res.json({ qtd_cal, qtd_prot, qtd_lip, qtd_carb });
     }
+    */
 }
