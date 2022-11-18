@@ -4,8 +4,18 @@ const Alimento = require('../models/Alimento');
 
 const axios = require('axios')
 
-module.exports = {
+const requisicao = (opcoes) => {
+    return new Promise((resolve, reject) => {
+        axios.request(opcoes).then(function (response) {
+            resolve(response);
+        })
+        .catch(function (error) {
+            console.error(error);
+        });
+    })
+}
 
+module.exports = {
     async index(req, res) {
         const { id } = req.params;
 
@@ -23,7 +33,7 @@ module.exports = {
                 attributes: [ 'id', 'data' ],
                 include: {
                     association: 'alimentos',
-                    attributes: [ 'alimento', 'qtd_g' ]
+                    attributes: [ 'nome', 'qtd_g' ]
                 }
             }
         });
@@ -65,7 +75,6 @@ module.exports = {
         return res.json();
     },
 
-    /*
     async getConsumo(req, res) {
         const { id } = req.params;
 
@@ -79,39 +88,40 @@ module.exports = {
         if (!refeicao) {
             return res.status(400).json({erro:"Refeicao nao encontrado"})
         }
-
-        let qtd_cal = 0;
-        let qtd_prot = 0;
-        let qtd_lip = 0;
-        let qtd_carb = 0;
-
+        
+        // configuracoes de requisicao da API de alimentos
         const options = {
             method: 'GET',
             url: 'https://calorieninjas.p.rapidapi.com/v1/nutrition',
             params: {query: ''},
             headers: {
-              'X-RapidAPI-Key': '5c78918395mshc73ddfde387d928p19462bjsn7c46636e89dc',
-              'X-RapidAPI-Host': 'calorieninjas.p.rapidapi.com'
+                'X-RapidAPI-Key': '5c78918395mshc73ddfde387d928p19462bjsn7c46636e89dc',
+                'X-RapidAPI-Host': 'calorieninjas.p.rapidapi.com'
             }
         };
+        
+        var qtd_cal = 0;
+        var qtd_prot = 0;
+        var qtd_lip = 0;
+        var qtd_carb = 0;
 
         for (const alimento of refeicao.alimentos) {
             options.params = {query: alimento.nome};
-            axios.request(options).then(function (response) {
 
-                qtd_cal += response.data.items[0].calories * alimento.qtd_g / 100;
-                qtd_prot += response.data.items[0].protein_g * alimento.qtd_g / 100;
-                qtd_carb += response.data.items[0].carbohydrates_total_g * alimento.qtd_g / 100;
-                qtd_lip += response.data.items[0].fat_total_g * alimento.qtd_g / 100;
+            const response = await requisicao(options)
 
-            }).catch(function (error) {
-                console.error(error);
-            });
-
-            console.log(qtd_cal);
+            // atualiza os valores
+            qtd_cal = response.data.items[0].calories * alimento.qtd_g / 100;
+            qtd_prot = response.data.items[0].protein_g * alimento.qtd_g / 100;
+            qtd_lip = response.data.items[0].fat_total_g * alimento.qtd_g / 100;
+            qtd_carb = response.data.items[0].carbohydrates_total_g * alimento.qtd_g / 100;
         }
 
-        return res.json({ qtd_cal, qtd_prot, qtd_lip, qtd_carb });
+        return res.json({
+            qtd_cal,
+            qtd_prot,
+            qtd_lip,
+            qtd_carb
+        });
     }
-    */
 }

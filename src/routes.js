@@ -22,7 +22,7 @@ routes.put('/usuarios', UsuarioController.update);
 
 // Refeicoes
 routes.get('/refeicoes/:id', RefeicaoController.index);
-// routes.get('/refeicoes/:id/consumo', RefeicaoController.getConsumo);
+routes.get('/refeicoes/:id/consumo', RefeicaoController.getConsumo);
 routes.get('/usuarios/:usuario_id/refeicoes', RefeicaoController.listByUser);
 routes.post('/usuarios/:usuario_id/refeicoes', RefeicaoController.store);
 routes.delete('/refeicoes/:id', RefeicaoController.delete);

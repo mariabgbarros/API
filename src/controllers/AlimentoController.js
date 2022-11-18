@@ -12,7 +12,7 @@ module.exports = {
 
     async store(req, res) {
         const { refeicao_id } = req.params;
-        const { alimento, qtd_g } = req.body;
+        const { nome, qtd_g } = req.body;
 
         const refeicao = await Refeicao.findByPk(refeicao_id);
 
@@ -23,7 +23,7 @@ module.exports = {
 
         const refeicao_alimento = await Alimento.create({
             refeicao_id,
-            alimento,
+            nome,
             qtd_g,
         });
 
