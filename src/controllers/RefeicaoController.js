@@ -111,10 +111,10 @@ module.exports = {
             const response = await requisicao(options)
 
             // atualiza os valores
-            qtd_cal = response.data.items[0].calories * alimento.qtd_g / 100;
-            qtd_prot = response.data.items[0].protein_g * alimento.qtd_g / 100;
-            qtd_lip = response.data.items[0].fat_total_g * alimento.qtd_g / 100;
-            qtd_carb = response.data.items[0].carbohydrates_total_g * alimento.qtd_g / 100;
+            qtd_cal += response.data.items[0].calories * alimento.qtd_g / 100;
+            qtd_prot += response.data.items[0].protein_g * alimento.qtd_g / 100;
+            qtd_lip += response.data.items[0].fat_total_g * alimento.qtd_g / 100;
+            qtd_carb += response.data.items[0].carbohydrates_total_g * alimento.qtd_g / 100;
         }
 
         return res.json({
