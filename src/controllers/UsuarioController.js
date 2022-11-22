@@ -55,9 +55,6 @@ module.exports = {
             altura,
             sexo,
         });
-
-        // res.setHeader('Access-Control-Allow-Origin', 'http://0.0.0.0');
-        // res.setHeader('Access-Control-Allow-Credentials', true);
         
         return res.json(usuario);
     },
