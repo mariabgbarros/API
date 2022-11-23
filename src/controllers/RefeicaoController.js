@@ -19,7 +19,12 @@ module.exports = {
     async index(req, res) {
         const { id } = req.params;
 
-        const refeicao = await Refeicao.findByPk(id);
+        const refeicao = await Refeicao.findByPk(id, {
+            include: {
+                association: 'alimentos',
+                attributes: [ 'nome', 'qtd_g']
+            }
+        });
 
         return res.json(refeicao);
     },
@@ -42,16 +47,32 @@ module.exports = {
             return res.status(400).json({error: 'Usuario nao encontrado'});
         }
 
-        if (!usuario.refeicoes[0]) {
-            return res.json({});
+        // Pega a refeicao mais recente
+        let refeicao = usuario.refeicoes[0];
+        for (const r of usuario.refeicoes) {
+            if (new Date(r.data)[Symbol.toPrimitive]('number') > new Date(refeicao.data)[Symbol.toPrimitive]('number'))
+                refeicao = r;
         }
 
-        let refeicao = usuario.refeicoes[0];
+        const date = new Date(refeicao.data);
+        const hoje = new Date();
+
+        if (!(date.getFullYear() == hoje.getFullYear() &&
+            date.getMonth() == hoje.getMonth() &&
+            date.getDate()+1 == hoje.getDate())) {
+
+            refeicao = await Refeicao.create({
+                data: hoje.getFullYear() + "-" + (hoje.getMonth()+1) + "-" + hoje.getDate(),
+                usuario_id,
+            });
+        }
+            
         let lista_alimentos = "";
 
-        for (const a of refeicao.alimentos) {
-            lista_alimentos += a.nome + ", " + a.qtd_g + "g\n";
-        }
+        if (!!refeicao.alimentos)
+            for (const a of refeicao.alimentos) {
+                lista_alimentos += a.nome + ", " + a.qtd_g + "g\n";
+            }
 
         return res.json({id: refeicao.id, alimentos: lista_alimentos});
     },
@@ -122,10 +143,10 @@ module.exports = {
             const response = await requisicao(options)
 
             // atualiza os valores
-            qtd_cal = response.data.items[0].calories * alimento.qtd_g / 100;
-            qtd_prot = response.data.items[0].protein_g * alimento.qtd_g / 100;
-            qtd_lip = response.data.items[0].fat_total_g * alimento.qtd_g / 100;
-            qtd_carb = response.data.items[0].carbohydrates_total_g * alimento.qtd_g / 100;
+            qtd_cal += response.data.items[0].calories * alimento.qtd_g / 100;
+            qtd_prot += response.data.items[0].protein_g * alimento.qtd_g / 100;
+            qtd_lip += response.data.items[0].fat_total_g * alimento.qtd_g / 100;
+            qtd_carb += response.data.items[0].carbohydrates_total_g * alimento.qtd_g / 100;
         }
 
         return res.json({
