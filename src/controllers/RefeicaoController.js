@@ -110,12 +110,27 @@ module.exports = {
     async getConsumo(req, res) {
         const { id } = req.params;
 
-        const refeicao = await Refeicao.findByPk(id, {
+        const usuario = await Usuario.findByPk(id, {
             include: {
-                association: 'alimentos',
-                attributes: ['nome','qtd_g'],
+                association: 'refeicoes',
+                attributes: [ 'id', 'data' ],
+                include: {
+                    association: 'alimentos',
+                    attributes: [ 'nome', 'qtd_g' ]
+                }
             }
         });
+
+        if (!usuario) {
+            return res.status(400).json({error: 'Usuario nao encontrado'});
+        }
+
+        // Pega a refeicao mais recente
+        let refeicao = usuario.refeicoes[0];
+        for (const r of usuario.refeicoes) {
+            if (new Date(r.data)[Symbol.toPrimitive]('number') > new Date(refeicao.data)[Symbol.toPrimitive]('number'))
+                refeicao = r;
+        }
 
         if (!refeicao) {
             return res.status(400).json({erro:"Refeicao nao encontrado"})
