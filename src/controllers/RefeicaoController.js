@@ -77,7 +77,7 @@ module.exports = {
                 lista_alimentos += a.nome + ", " + a.qtd_g + "g\n";
             }
 
-        return res.json({id: refeicao.id, alimentos: lista_alimentos, s, s2});
+        return res.json({id: refeicao.id, alimentos: lista_alimentos, s: s, s2: s2});
     },
 
     async store(req, res) {
