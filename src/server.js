@@ -8,9 +8,20 @@ const app = express();
 
 app.use(express.json())
 
-app.use(cors({
-    origin: '*'
-}));
+const corsOpts = {
+  origin: '*',
+  methods: [
+    'GET',
+    'POST',
+    'PUT',
+    'DELETE',
+  ],
+  allowedHeaders: [
+    'Content-Type',
+  ],
+};
+
+app.use(cors(corsOpts));
 
 app.use(routes);
 

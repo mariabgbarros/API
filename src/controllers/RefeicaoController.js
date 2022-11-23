@@ -42,6 +42,10 @@ module.exports = {
             return res.status(400).json({error: 'Usuario nao encontrado'});
         }
 
+        if (!usuario.refeicoes[0]) {
+            return res.json({});
+        }
+
         let refeicao = usuario.refeicoes[0];
         let lista_alimentos = "";
 
