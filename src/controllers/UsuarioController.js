@@ -41,9 +41,8 @@ module.exports = {
 
         const objetivo = await Objetivo.findByPk(objetivo_id);
 
-        if (!objetivo) {
+        if (!objetivo)
             return res.status(400).json( {error: "Objetivo nao encontrado"} );
-        }
 
         const usuario = await Usuario.create({
             objetivo_id,
@@ -55,6 +54,10 @@ module.exports = {
             altura,
             sexo,
         });
+
+        if (!usuario)
+            return res.status(500);
+
         
         return res.json(usuario);
     },
