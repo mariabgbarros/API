@@ -39,11 +39,11 @@ module.exports = {
         }
 
         const objetivo = await Objetivo.findByPk(objetivo_id);
+        */
 
         if (!objetivo) {
             return res.status(400).json( {error: "Objetivo nao encontrado"} );
         }
-        */
 
         const usuario = await Usuario.create({
             objetivo_id,
@@ -55,9 +55,6 @@ module.exports = {
             altura,
             sexo,
         });
-
-        // res.setHeader('Access-Control-Allow-Origin', 'http://0.0.0.0');
-        // res.setHeader('Access-Control-Allow-Credentials', true);
         
         return res.json(usuario);
     },

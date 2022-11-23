@@ -7,22 +7,7 @@ require('./database');
 const app = express();
 
 app.use(express.json())
-
-const corsOpts = {
-  origin: '*',
-  methods: [
-    'GET',
-    'POST',
-    'PUT',
-    'DELETE',
-  ],
-  allowedHeaders: [
-    'Content-Type',
-  ],
-};
-
-app.use(cors(corsOpts));
-
+app.use(cors());
 app.use(routes);
 
 const port = process.env.PORT || 3333;
