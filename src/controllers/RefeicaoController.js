@@ -57,6 +57,9 @@ module.exports = {
         const date = new Date(refeicao.data);
         const hoje = new Date();
 
+        const s =date.toString();
+        const s2 =hoje.toString();
+
         if (!(date.getFullYear() == hoje.getFullYear() &&
             date.getMonth() == hoje.getMonth() &&
             date.getDate()+1 == hoje.getDate())) {
@@ -74,7 +77,7 @@ module.exports = {
                 lista_alimentos += a.nome + ", " + a.qtd_g + "g\n";
             }
 
-        return res.json({id: refeicao.id, alimentos: lista_alimentos});
+        return res.json({id: refeicao.id, alimentos: lista_alimentos, s, s2});
     },
 
     async store(req, res) {
