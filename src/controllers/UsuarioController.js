@@ -26,21 +26,23 @@ module.exports = {
             peso,
             altura,
             objetivo_id,
+            sexo,
         } = req.body;
 
-        // const usuarioExistente = await Usuario.findOne({
-        //     where: { email }
-        // });
+        /*
+        const usuarioExistente = await Usuario.findOne({
+            where: { email }
+        });
 
-        // if (usuarioExistente) {
-        //     return res.status(400).json({erro:"Este email já foi utilizado"})
-        // }
+        if (!!usuarioExistente) {
+            return res.status(400).json({erro:"Este email já foi utilizado"})
+        }
+        */
 
-        // const objetivo = await Objetivo.findByPk(objetivo_id);
+        const objetivo = await Objetivo.findByPk(objetivo_id);
 
-        // if (!objetivo) {
-        //     return res.status(400).json( {error: "Objetivo nao encontrado"} );
-        // }
+        if (!objetivo)
+            return res.status(400).json( {error: "Objetivo nao encontrado"} );
 
         const usuario = await Usuario.create({
             objetivo_id,
@@ -50,8 +52,13 @@ module.exports = {
             data_nasc,
             peso,
             altura,
+            sexo,
         });
 
+        if (!usuario)
+            return res.status(500);
+
+        
         return res.json(usuario);
     },
 
@@ -72,7 +79,7 @@ module.exports = {
     },
 
     async update (req, res) {
-        const { nome, email, senha, data_nasc, peso, altura, id_objetivo } = req.body;
+        const { nome, email, senha, data_nasc, peso, altura, id_objetivo, sexo } = req.body;
 
         const usuario = await Usuario.findOne({
             where: { email }
@@ -90,6 +97,7 @@ module.exports = {
             peso,
             altura,
             id_objetivo,
+            sexo,
         });
 
         await usuario.save();

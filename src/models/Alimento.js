@@ -3,7 +3,7 @@ const { Model, DataTypes } = require('sequelize');
 class Alimento extends Model {
     static init(sequelize) {
         super.init({
-            alimento: DataTypes.STRING,
+            nome: DataTypes.STRING,
             qtd_g: DataTypes.INTEGER,
         }, {
             sequelize,
