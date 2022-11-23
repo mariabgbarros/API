@@ -24,7 +24,7 @@ module.exports = {
         return res.json(refeicao);
     },
 
-    async listByUser(req, res) {
+    async getByUser(req, res) {
         const { usuario_id } = req.params;
 
         const usuario = await Usuario.findByPk(usuario_id, {
@@ -42,7 +42,14 @@ module.exports = {
             return res.status(400).json({error: 'Usuario nao encontrado'});
         }
 
-        return res.json(usuario.refeicoes);
+        let refeicao = usuario.refeicoes[0];
+        let lista_alimentos = "";
+
+        for (const a of refeicao.alimentos) {
+            lista_alimentos += a.nome + ", " + a.qtd_g + "g\n";
+        }
+
+        return res.json({id: refeicao.id, alimentos: lista_alimentos});
     },
 
     async store(req, res) {

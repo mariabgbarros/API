@@ -7,7 +7,11 @@ require('./database');
 const app = express();
 
 app.use(express.json())
-app.use(cors());
+
+app.use(cors({
+    origin: '*'
+}));
+
 app.use(routes);
 
 const port = process.env.PORT || 3333;

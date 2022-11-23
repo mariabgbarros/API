@@ -8,6 +8,7 @@ module.exports = {
 
         const usuario = await Usuario.findByPk(usuario_id);
 
+        // Verifica se ja existe usuario com o id inserido
         if (!usuario) {
             return res.status(400).json({ error: 'Usuario nao encontrado'})
         }
