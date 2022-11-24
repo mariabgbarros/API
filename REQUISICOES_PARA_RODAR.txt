@@ -1,0 +1,3 @@
+Instalar o yarn e rodar em um terminal na pasta raiz os comandos:
+yarn install
+yarn dev
